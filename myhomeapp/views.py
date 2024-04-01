@@ -3,6 +3,8 @@ import logging
 from django.http import HttpResponse
 from django.shortcuts import render
 
+from myhomeapp.models import Client, Product, Order
+
 logger = logging.getLogger(__name__)
 
 
@@ -21,3 +23,23 @@ def about(request):
                         "</ol>")
 
 
+def read_home_table(request):
+    """сделал пробные запросы"""
+
+    clients = Client.objects.all()
+    clients = [f'{i}<br>' for i in clients]
+
+    products = Product.objects.all()
+    products = [f'{i}<br>' for i in products]
+
+    order = Order.objects.all()
+    order = [f'{i}<br>' for i in order]
+
+    select_ = Client.objects.get(pk=4).product_id.all()
+
+    select_ = Product.objects.get(pk=4).order_set.all()
+
+    select_ = [f'{i}<br>' for i in select_]
+
+    # заменить для проверки в return на clients,products или order
+    return HttpResponse(select_)
