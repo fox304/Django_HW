@@ -2,6 +2,7 @@ import logging
 
 from django.http import HttpResponse
 from django.shortcuts import render
+from django.views.generic import TemplateView
 
 from myhomeapp.models import Client, Product, Order
 
@@ -43,3 +44,5 @@ def read_home_table(request):
 
     # заменить для проверки в return на clients,products или order
     return HttpResponse(select_)
+
+
