@@ -1,3 +1,4 @@
+import datetime
 import logging
 
 from django.http import HttpResponse
@@ -46,3 +47,33 @@ def read_home_table(request):
     return HttpResponse(select_)
 
 
+class ProductsList(TemplateView):
+    template_name = 'myhomeapp/products.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        # для получения данных за год, пол года, месяц
+        t_year = datetime.datetime.now() - datetime.timedelta(days=365)
+        half_year = datetime.datetime.now() - datetime.timedelta(days=180)
+        t_day = datetime.datetime.now() - datetime.timedelta(days=30)
+
+        orders_list = []
+        products_list = []
+
+        for period in t_year, half_year, t_day:
+            pk = kwargs.get('client')
+            products_unique = set()  # для получения уникальных данных
+            orders = Order.objects.filter(customer_order__pk=pk)  # выборка заказов по клиенту
+            orders = orders.filter(date_of_the_order__gte=period).order_by('date_of_the_order')
+
+            # получение множества уникальных продуктов всех заказов клиента
+            [products_unique.update(order.product_order.all()) for order in orders]
+
+            orders_list.append(orders)
+            products_list.append(products_unique)
+
+        context['orders'] = orders_list
+        context['products_unique'] = products_list
+        context['client'] = Client.objects.get(pk=pk)
+        return context

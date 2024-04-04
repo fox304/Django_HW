@@ -9,7 +9,7 @@ class Client(models.Model):
     registration_date_client = models.DateField()
 
     def __str__(self):
-        return f'Клиент {self.name_client, self.address, self.registration_date_client}'
+        return f' {self.name_client}'
 
 
 class Product(models.Model):
@@ -35,7 +35,7 @@ class Order(models.Model):
     product_order = models.ManyToManyField(Product, db_table="goods_orders")
 
     def __str__(self):
-        return f'Заказ номер {self.id}, Клиент {self.customer_order.name_client} '
+        return f'Заказ номер {self.id}, {self.date_of_the_order}'
 
     def sum_order(self, price):
         """Общая сумма заказа"""
