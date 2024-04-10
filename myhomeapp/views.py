@@ -1,10 +1,12 @@
 import datetime
 import logging
 
+from django.core.files.storage import FileSystemStorage
 from django.http import HttpResponse
 from django.shortcuts import render
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, View
 
+from myhomeapp.forms import ImageForm
 from myhomeapp.models import Client, Product, Order
 
 logger = logging.getLogger(__name__)
@@ -77,3 +79,26 @@ class ProductsList(TemplateView):
         context['products_unique'] = products_list
         context['client'] = Client.objects.get(pk=pk)
         return context
+
+
+def home(request):
+    return render(request, 'myhomeapp/toys.html')
+
+
+def list_toys(request):
+    toys = Product.objects.all()
+    return render(request, 'myhomeapp/list_toys.html', {'toys': toys})
+
+
+def load_photo(request):
+    if request.method == 'POST':
+        form = ImageForm(request.POST, request.FILES)
+        if form.is_valid():
+            product = form.cleaned_data['product']
+            photo = form.cleaned_data['photo']
+            product.picture = photo  # запись фото в каталог
+            product.save()  # запись фото в базу
+            return render(request, 'myhomeapp/view_toy.html', {'prod': product})
+    else:
+        form = ImageForm()
+    return render(request, 'myhomeapp/load_forms.html', {'form': form})

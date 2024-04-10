@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <h3>загружена игрушка </h3>
+    {% if prod.picture %}
+    <img src="{{ prod.picture.url }}"  alt=""><br>
+    {% endif %}
+    <a href="{% url 'home' %}">возврат на главную страницу</a>
+
+</body>
+</html>

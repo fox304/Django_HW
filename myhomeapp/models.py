@@ -1,4 +1,6 @@
 from django.db import models
+# from django.shortcuts import reverse
+from django.urls import reverse
 
 
 class Client(models.Model):
@@ -18,9 +20,10 @@ class Product(models.Model):
     price = models.DecimalField(max_digits=10, decimal_places=2)
     quantity = models.IntegerField(default=0)
     date_of_manufacture_product = models.DateField()
+    picture = models.ImageField(upload_to='toys', null=True, blank=True)
 
     def __str__(self):
-        return f'Продукт {self.name_of_item, self.quantity, self.date_of_manufacture_product}'
+        return f'Продукт {self.name_of_item}'
 
     def quantity_of_product_sold(self, num):
         """Количество оставшегося товара"""
@@ -35,7 +38,7 @@ class Order(models.Model):
     product_order = models.ManyToManyField(Product, db_table="goods_orders")
 
     def __str__(self):
-        return f'Заказ номер {self.id}, {self.date_of_the_order}'
+        return f'Заказ номер {self.pk}, {self.date_of_the_order}'
 
     def sum_order(self, price):
         """Общая сумма заказа"""

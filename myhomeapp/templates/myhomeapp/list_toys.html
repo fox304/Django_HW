@@ -1,0 +1,12 @@
+{% extends 'myhomeapp/base_toys.html' %}
+
+{% block block2 %}
+
+{% for toy in toys %}
+    {{ toy|linebreaks  }}
+    {% if toy.picture %}
+    <img src="{{ toy.picture.url }}" width="200px" alt="">
+    {% endif %}
+{% endfor %}
+
+{% endblock %}
