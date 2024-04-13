@@ -1,0 +1,27 @@
+{% extends 'myhomeapp/base.html' %}
+
+{% block block1 %}
+<h3>список заказанных  <em>{{ client }}</em> товаров из всех его заказов </h3>
+
+{% for products_period in products_unique %}
+    {% cycle 'за год' 'за пол года' 'за месяц'  as time silent %}
+
+    <h5>{{ time }}</h5><hr>
+    {% for product in products_period %}
+
+    {{ product }}<br>
+
+    {% endfor %}
+{% endfor %}
+
+
+<h3>список всех заказов с сортировкой по дате</h3>
+
+{% for order_period in orders %}
+    {% cycle 'за год' 'за месяц' 'за неделю' as time silent %}
+    <h5>{{ time }}</h5><hr>
+    {% for order in order_period %}
+        {{ order }}<br>
+    {% endfor %}
+{% endfor %}
+{% endblock %}
