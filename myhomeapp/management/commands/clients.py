@@ -25,5 +25,6 @@ class Command(BaseCommand):
 				address=random_address_,
 				registration_date_client=f'{years}-{months}-{days}'
 			)
+
 			client.save()
 		self.stdout.write(msg="создание клиентов прошло успешно")

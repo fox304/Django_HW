@@ -22,8 +22,7 @@ from homedjangoproject import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('/', include('myhomeapp.urls')),
-    'username.pythonanywhere.com',
+    path('', include('myhomeapp.urls')),
 
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

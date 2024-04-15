@@ -22,7 +22,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-)8#ua!4^nd(@%&)do#b%d+%z5w&q)096#(vbne0lfiyzo@mm=8'
-MYSQL_PASSWORD = 'Pk9(J@8*^vv)88Jjj6$H'
+MYSQL_PASSWORD = 'MJW-X6j-89H-r6b'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 SESSION_COOKIE_SECURE = True
@@ -169,6 +169,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
 STATIC_URL = 'static/'
+STATIC_ROOT = BASE_DIR / 'static/'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
